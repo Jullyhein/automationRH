@@ -1,0 +1,44 @@
+name: Automação Agendada
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # Executa todo dia às 8h UTC (5h da manhã no Brasil, UTC-3)
+  workflow_dispatch:      # Permite executar manualmente também
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    env:
+      PROTHEUS_URL: ${{ secrets.PROTHEUS_URL }}
+      PROTHEUS_USER: ${{ secrets.PROTHEUS_USER }}
+      PROTHEUS_PASS: ${{ secrets.PROTHEUS_PASS }}
+      PROTHEUS_CLIENT_ID: ${{ secrets.PROTHEUS_CLIENT_ID }}
+      PROTHEUS_CLIENT_SECRET: ${{ secrets.PROTHEUS_CLIENT_SECRET }}
+      PROTHEUS_COMPANY_ID: ${{ secrets.PROTHEUS_COMPANY_ID }}
+      PROTHEUS_BRANCH_ID: ${{ secrets.PROTHEUS_BRANCH_ID }}
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+      TENANT_ID: ${{ secrets.TENANT_ID }}
+      DRIVE_ID: ${{ secrets.DRIVE_ID }}
+      FOLDER_BASE: ${{ secrets.FOLDER_BASE }}
+      EMAIL_DESTINO: ${{ secrets.EMAIL_DESTINO }}
+      EMAIL_REMETENTE: ${{ secrets.EMAIL_REMETENTE }}
+      SENHA_EMAIL: ${{ secrets.SENHA_EMAIL }}
+
+    steps:
+      - name: Clonar repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar dependências
+        run: |
+          pip install -r requirements.txt
+
+      - name: Executar script
+        run: |
+          python scheduler.py

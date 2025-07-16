@@ -7,7 +7,7 @@ from graphutils import formatar_nome_curto, get_access_token, get_aniversariante
 
 def executar_envio_por_data(data_desejada=None):
     if not data_desejada:
-        #data_desejada = "01-06"
+        #data_desejada = "30-06"
         data_desejada = datetime.now().strftime("%d-%m")
 
     logging.info(f"📅 Data desejada: {data_desejada}")
@@ -41,7 +41,7 @@ def executar_envio_por_data(data_desejada=None):
 
     assunto = f"🎉 Felicitações de Aniversário – {data_desejada}"
     corpo_html = f"""
-        <h2>🎉TESTE ... Aniversariantes de {data_desejada}</h2>
+        <h2>🎉 Aniversariantes de {data_desejada}</h2>
         <p>🎈 Hoje é dia de celebrar as vidas incríveis que fazem parte da nossa jornada!</p>
     """
 
