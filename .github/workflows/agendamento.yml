@@ -40,5 +40,6 @@ jobs:
           pip install -r requirements.txt
 
       - name: Executar script
+        working-directory: ./src
         run: |
           python scheduler.py
