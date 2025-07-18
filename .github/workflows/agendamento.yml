@@ -2,7 +2,7 @@ name: Automação Agendada aniversariantes
 
 on:
   schedule:
-    - cron: '30 10 * * *'  # Executa todo dia às 8h UTC (5h da manhã no Brasil, UTC-3)
+    - cron: '30 10 * * *'  # 10:30 UTC = 07:30 Brasília
   workflow_dispatch:      # Permite executar manualmente também
 
 jobs:
