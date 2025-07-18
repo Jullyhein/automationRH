@@ -36,12 +36,6 @@ def tarefa_enviar_felicitacoes():
     except Exception as e:
         logging.error(f"❌ Erro ao executar envio automático: {str(e)}")
 
-# 🕒 Agendar a execução diária às 11:52 (ou outro horário desejado)
-schedule.every().day.at("07:30").do(tarefa_enviar_felicitacoes)
-
-logging.info("📆 Scheduler iniciado. Aguardando horário programado...")
-
-# 🔁 Loop para manter o scheduler ativo
-while True:
-    schedule.run_pending()
-    time.sleep(60)
+if __name__ == "__main__":
+    logging.info("🚀 Executando tarefa de felicitações...")
+    tarefa_enviar_felicitacoes()
