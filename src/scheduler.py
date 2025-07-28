@@ -2,27 +2,17 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from flask import Flask
-from flask import app
+import logging
+from dotenv import load_dotenv
 from executa_envio_data import executar_envio_por_data
+
+# Redireciona erros para arquivo de log
 sys.stderr = open("stderr.log", "w", encoding="utf-8", errors="replace")
 
-import os
-import schedule
-import time
-import subprocess
-import smtplib
-import datetime
-import logging
-from email.mime.text import MIMEText
-from dotenv import load_dotenv
-
-
-app = Flask(__name__)
-# Carrega variáveis de ambiente
+# Carrega variáveis de ambiente do .env
 load_dotenv()
 
-# Configura o logging
+# Configuração de logging
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s"
@@ -30,18 +20,11 @@ logging.basicConfig(
 
 def tarefa_enviar_felicitacoes():
     try:
-        with app.app_context():
-            resultado = executar_envio_por_data()
-            logging.info(f"✅ Tarefa executada: {resultado}")
+        resultado = executar_envio_por_data()
+        logging.info(f"✅ Tarefa executada com sucesso: {resultado}")
     except Exception as e:
         logging.error(f"❌ Erro ao executar envio automático: {str(e)}")
 
-# 🕒 Agendar a execução diária às 11:52 (ou outro horário desejado)
-schedule.every().day.at("07:30").do(tarefa_enviar_felicitacoes)
-
-logging.info("📆 Scheduler iniciado. Aguardando horário programado...")
-
-# 🔁 Loop para manter o scheduler ativo
-while True:
-    schedule.run_pending()
-    time.sleep(60)
+if __name__ == "__main__":
+    logging.info("🚀 Iniciando tarefa de envio de felicitações...")
+    tarefa_enviar_felicitacoes()

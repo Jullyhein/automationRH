@@ -6,6 +6,7 @@ import requests
 import logging
 from datetime import datetime
 from dotenv import load_dotenv
+import time
 from protheus import buscar_aniversariantes_hoje, get_active_employees
 
 load_dotenv()
@@ -90,9 +91,11 @@ def formatar_nome_curto(nome_completo):
     primeiros = nomes[:2]
     return " ".join([n.capitalize() for n in primeiros])
 
+inicio = time.time()
 EXTENSOES_SUPORTADAS = [".jpg", ".jpeg", ".png"]
 def get_aniversariantes_com_imagem(token, data_desejada=None):
     cpfs_hoje = buscar_aniversariantes_hoje(data_desejada)
+    logging.info(f"⏱️ Tempo para obter aniversariantes: {time.time() - inicio:.2f}s")
     if not cpfs_hoje:
         logging.info("Nenhum aniversariante encontrado para hoje.")
         return []

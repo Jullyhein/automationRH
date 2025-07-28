@@ -7,7 +7,7 @@ from graphutils import formatar_nome_curto, get_access_token, get_aniversariante
 
 def executar_envio_por_data(data_desejada=None):
     if not data_desejada:
-        #data_desejada = "30-06"
+        #data_desejada = "26-07"
         data_desejada = datetime.now().strftime("%d-%m")
 
     logging.info(f"📅 Data desejada: {data_desejada}")
