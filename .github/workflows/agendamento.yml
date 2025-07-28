@@ -39,7 +39,7 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Executar script nb  
+      - name: Executar envio de aniversariantes 
         working-directory: ./src
         run: |
           python scheduler.py

@@ -92,10 +92,14 @@ def buscar_aniversariantes_hoje(data_desejada=None):
 
     return aniversariantes
 
-def buscar_aniversariantes_mes(mes_desejado="06"):
+def buscar_aniversariantes_mes(mes_desejado=None):
     """
-    Lista CPFs dos funcionários ativos que fazem aniversário no mês especificado (formato: "MM").
+    Lista CPFs dos funcionários ativos que fazem aniversário no mês especificado.
+    Se nenhum mês for fornecido, usa o mês atual. O formato do mês é "MM".
     """
+    if mes_desejado is None:
+        mes_desejado = datetime.now().strftime("%m")
+
     logging.info(f"🔎 Procurando aniversariantes para o mês: {mes_desejado}")
     employees = get_active_employees()
     logging.debug(f"Total de funcionários ativos: {len(employees)}")
@@ -104,7 +108,7 @@ def buscar_aniversariantes_mes(mes_desejado="06"):
     for emp in employees:
         nascimento = emp.get("birthdate")  # formato esperado: "dd-mm"
         if nascimento and nascimento[3:5] == mes_desejado:
-            logging.info(f"🎉 Aniversariante de junho: {emp['name']} - CPF: {emp['employeeCpf']}")
+            logging.info(f"🎉 Aniversariante do mês {mes_desejado}: {emp['name']} - CPF: {emp['employeeCpf']}")
             aniversariantes_mes.append({
                 "name": emp["name"],
                 "birthdate": nascimento,
